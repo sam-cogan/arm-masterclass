@@ -1,0 +1,19 @@
+"storageProfile": {
+    "dataDisks": [
+      {
+        "lun": 0,
+        "createOption": "Empty",
+        "diskSizeGB": 1023
+      },
+      {
+        "lun": 1,
+        "createOption": "Empty",
+        "diskSizeGB": 1023
+      },
+      {
+        "lun": 2,
+        "createOption": "Empty",
+        "diskSizeGB": 1023
+      }
+    ]
+}
