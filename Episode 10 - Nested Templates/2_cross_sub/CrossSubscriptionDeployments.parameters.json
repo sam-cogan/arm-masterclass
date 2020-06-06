@@ -1,0 +1,19 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "StorageAccountName1": {
+      "value": "crosssubsademo1"
+    },
+    "StorageAccountName2":{
+      "value": "crosssubsademo2"
+    },
+    "SecondSubID":{
+        "value":"xxxxxxxx"
+    },
+    "SecondRGName":{
+        "value":"crossSubscriptionDeployment"
+    }
+
+  }
+}
