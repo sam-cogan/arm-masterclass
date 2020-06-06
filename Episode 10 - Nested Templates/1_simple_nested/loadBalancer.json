@@ -3,36 +3,39 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "loadBalancers_name": {
-            "defaultValue": "mylb",
+            "defaultValue": "lambdalb",
             "type": "string"
         },
         "publicIPAddresses_name": {
-            "defaultValue": "myip",
+            "defaultValue": "lambdaip",
             "type": "string"
         }
     },
-    "variables": {},
+    "variables": {
+    },
     "resources": [
         {
             "apiVersion": "2019-05-01",
             "name": "linkedTemplate",
             "type": "Microsoft.Resources/deployments",
             "properties": {
-              "mode": "Incremental",
-              "templateLink": {
-                "uri": "https://raw.githubusercontent.com/sam-cogan/arm-masterclass/master/Episode%2010%20-%20Nested%20Templates/1_simple_nested/IPAddress.json",
-                "contentVersion": "1.0.0.0"
-              },
-              "parameters":{
-                  "publicIPAddresses_name":{"value": "[parameters('publicIPAddresses_name')]"}
-              }
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "https://raw.githubusercontent.com/sam-cogan/arm-masterclass/master/Episode%2010%20-%20Nested%20Templates/1_simple_nested/IPAddress.json",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "publicIPAddresses_name": {
+                        "value": "[parameters('publicIPAddresses_name')]"
+                    }
+                }
             }
-          },
+        },
         {
             "type": "Microsoft.Network/loadBalancers",
             "name": "[parameters('loadBalancers_name')]",
             "apiVersion": "2017-06-01",
-            "location": "eastus",
+            "location": "[resourceGroup().location]",
             "properties": {
                 "frontendIPConfigurations": [
                     {
@@ -45,12 +48,18 @@
                         }
                     }
                 ],
-                "backendAddressPools": [],
-                "loadBalancingRules": [],
-                "probes": [],
-                "inboundNatRules": [],
-                "outboundNatRules": [],
-                "inboundNatPools": []
+                "backendAddressPools": [
+                ],
+                "loadBalancingRules": [
+                ],
+                "probes": [
+                ],
+                "inboundNatRules": [
+                ],
+                "outboundNatRules": [
+                ],
+                "inboundNatPools": [
+                ]
             },
             "dependsOn": [
                 "linkedTemplate"

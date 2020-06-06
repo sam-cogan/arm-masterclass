@@ -1,5 +1,5 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "StorageAccountName1": {
@@ -16,10 +16,11 @@
         }
 
     },
-    "variables": {},
+    "variables": {
+    },
     "resources": [
         {
-            "apiVersion": "2017-05-10",
+            "apiVersion": "2019-05-01",
             "name": "nestedTemplate",
             "type": "Microsoft.Resources/deployments",
             "resourceGroup": "[parameters('SecondRGName')]",
@@ -29,30 +30,38 @@
                 "template": {
                     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                     "contentVersion": "1.0.0.0",
-                    "parameters": {},
-                    "variables": {},
+                    "parameters": {
+                    },
+                    "variables": {
+                    },
                     "resources": [
                         {
                             "type": "Microsoft.Storage/storageAccounts",
                             "name": "[parameters('StorageAccountName2')]",
-                            "apiVersion": "2015-06-15",
+                            "apiVersion": "2019-06-01",
                             "location": "[resourceGroup().location]",
-                            "properties": {
-                                "accountType": "Standard_LRS"
+                            "kind": "StorageV2",
+                            "sku": {
+                                "name": "Premium_LRS",
+                                "tier": "Premium"
                             }
                         }
                     ]
                 },
-                "parameters": {}
+                "parameters": {
+                }
             }
         },
+
         {
             "type": "Microsoft.Storage/storageAccounts",
             "name": "[parameters('StorageAccountName1')]",
             "apiVersion": "2015-06-15",
             "location": "[resourceGroup().location]",
-            "properties": {
-                "accountType": "Standard_LRS"
+            "kind": "StorageV2",
+            "sku": {
+                "name": "Premium_LRS",
+                "tier": "Premium"
             }
         }
     ]
