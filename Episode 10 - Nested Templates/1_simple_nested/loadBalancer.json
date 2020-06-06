@@ -14,13 +14,13 @@
     "variables": {},
     "resources": [
         {
-            "apiVersion": "2017-05-10",
+            "apiVersion": "2019-05-01",
             "name": "linkedTemplate",
             "type": "Microsoft.Resources/deployments",
             "properties": {
               "mode": "Incremental",
               "templateLink": {
-                "uri": "[uri(deployment().properties.templateLink.uri, 'public-ip.json')]",
+                "uri": "https://raw.githubusercontent.com/sam-cogan/arm-masterclass/master/Episode%2010%20-%20Nested%20Templates/1_simple_nested/IPAddress.json",
                 "contentVersion": "1.0.0.0"
               },
               "parameters":{
