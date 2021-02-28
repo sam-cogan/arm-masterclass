@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "StorageAccountName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name for storage Account"
+      }
+    },
+    "PublicIpName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of Public IP"
+      }
+    }
+  },
+  "functions": [],
+  "variables": {},
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "name": "storageAccount",
+      "apiVersion": "2020-06-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "relativePath": "artifacts/StorageModule.json"
+        },
+        "parameters": {
+          "storageAccountName": {
+            "value": "[parameters('StorageAccountName')]"
+          }
+        }
+      }
+    },
+    {
+      "name": "[parameters('PublicIpName')]",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "apiVersion": "2019-11-01",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "displayName": "[parameters('PublicIpName')]"
+      },
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic",
+        "dnsSettings": {
+          "domainNameLabel": "[parameters('PublicIpName')]"
+        }
+      }
+    }
+  ],
+  "outputs": {}
+}
