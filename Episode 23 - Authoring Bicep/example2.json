@@ -1,0 +1,61 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.3.255.40792",
+      "templateHash": "5321969515253741550"
+    }
+  },
+  "parameters": {
+    "namePrefix": {
+      "type": "string",
+      "maxLength": 6,
+      "minLength": 3
+    },
+    "addressPrefixes": {
+      "type": "array",
+      "defaultValue": [
+        "10.0.0.0/24"
+      ]
+    },
+    "location": {
+      "type": "string",
+      "allowedValues": [
+        "eastus",
+        "westus",
+        "westeurope",
+        "northeurope"
+      ]
+    }
+  },
+  "functions": [],
+  "variables": {
+    "storageKind": "StorageV2",
+    "vNetName": "[format('{0}-VNET-{1}', toUpper(parameters('namePrefix')), toUpper(uniqueString(resourceGroup().id)))]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+      "apiVersion": "2020-11-01",
+      "name": "[variables('vNetName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": "[parameters('addressPrefixes')]"
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "vnetId": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.Network/virtualNetworks', variables('vNetName'))]"
+    },
+    "vnetAddressPrefixes": {
+      "type": "array",
+      "value": "[reference(resourceId('Microsoft.Network/virtualNetworks', variables('vNetName'))).addressSpace.addressPrefixes]"
+    }
+  }
+}
