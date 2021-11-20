@@ -1,0 +1,71 @@
+{
+    "moduleAliases": {
+
+        "br": {
+            "bicepreg":{
+                "registry": "bicepreg.azurecr.io"
+            },
+            "modules":{
+                "registry": "bicepreg.azurecr.io",
+                "modulePath": "bicep/modules"
+
+            }
+        }
+    },
+    "cloud": {
+        "credentialPrecedence": [
+            "ManagedIdentity",
+            "AzureCLI",
+            "AzurePowerShell"
+        ]
+    },
+    "analyzers": {
+        "core": {
+            "enabled": true,
+            "verbose": true,
+            "rules": {
+                "adminusername-should-not-be-literal": {
+                    "level": "warning"
+                },
+                "no-hardcoded-env-urls": {
+                    "level": "error",
+                    "disallowedHosts": [
+                        "gallery.azure.com",
+                        "management.core.windows.net",
+                        "management.azure.com",
+                        "database.windows.net",
+                        "core.windows.net",
+                        "login.microsoftonline.com",
+                        "graph.windows.net",
+                        "trafficmanager.net",
+                        "datalake.azure.net",
+                        "azuredatalakestore.net",
+                        "azuredatalakeanalytics.net",
+                        "vault.azure.net",
+                        "api.loganalytics.io",
+                        "asazure.windows.net",
+                        "region.asazure.windows.net",
+                        "batch.core.windows.net"
+                    ]
+                    
+
+                },
+                "no-unused-params": {
+                    "level":"info"
+                },
+                "no-unused-vars": {
+                    "level": "off"
+                },
+                "prefer-interpolation": {
+                    "level": "warning"
+                },
+                "secure-parameter-default": {
+                    "level": "warning"
+                },
+                "simplify-interpolation": {
+                    "level": "warning"
+                }
+            }
+        }
+    }
+}
